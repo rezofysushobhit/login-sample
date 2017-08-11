@@ -1,0 +1,54 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+	baseName = 'aapi'
+	version = '0.0.1-SNAPSHOT'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-data-rest')
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.springframework.boot:spring-boot-starter-validation')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.7'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.7'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-jcl', version: '2.7'
+	compile 'io.jsonwebtoken:jjwt:0.7.0'
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+	compile group: 'joda-time', name: 'joda-time', version: '2.9.7'
+	compile group: 'com.ning', name: 'async-http-client', version: '1.9.40'
+	
+	runtime('org.springframework.boot:spring-boot-devtools')
+	compileOnly('org.springframework.boot:spring-boot-configuration-processor')
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.springframework.restdocs:spring-restdocs-mockmvc')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:Camden.SR5"
+	}
+}
